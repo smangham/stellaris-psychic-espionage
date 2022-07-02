@@ -1,0 +1,93 @@
+# Espionage Assets
+#
+# asset_name_key = {
+#	 passive = { spy_network_levels_add = @asset_spy_network_max } #passive modifier
+#	 active = {} #active modifier
+#	 possible = {} #trigger
+#	 potential = {} # trigger
+#	 categories = {} # primary category always goes first!
+# }
+
+# Gov, Dip, Eco, Tec, Mil
+
+@category_mod = 4
+@asset_spy_network_max = 5
+
+## Hive Assets
+
+## Psychic Assets
+asset_drone_zro_government = {
+	appearance = {
+		name_generation_method = random_person
+		portrait_generation_method = random_person
+	}
+	passive = { spy_network_levels_add = @asset_spy_network_max }
+	active = {
+		op_cat_zro_skill_add = @category_mod
+		op_cat_government_skill_add = @category_mod
+	}
+	possible = {}
+	potential = {}
+	categories = { op_cat_zro op_cat_government }
+}
+
+asset_drone_zro_diplomacy = {
+	passive = { spy_network_levels_add = @asset_spy_network_max }
+	active = {
+		op_cat_zro_skill_add = @category_mod
+		op_cat_diplomacy_skill_add = @category_mod
+	}
+	possible = {}
+	potential = {}
+	categories = { op_cat_zro op_cat_diplomacy }
+	appearance = {
+		portrait_generation_method = nongenerated
+		name_generation_method = nongenerated
+		default_portrait = GFX_espionage_asset_hive
+	}
+}
+
+asset_zro_drone_economy = {
+	appearance = {
+		name_generation_method = random_person
+		portrait_generation_method = random_person
+	}
+	passive = { spy_network_levels_add = @asset_spy_network_max }
+	active = {
+		op_cat_zro_skill_add = @category_mod
+		op_cat_economy_skill_add = @category_mod
+	}
+	possible = {}
+	potential = {}
+	categories = { op_cat_zro op_cat_economy }
+}
+
+asset_zro_drone_research = {
+	appearance = {
+		name_generation_method = random_person
+		portrait_generation_method = random_person
+	}
+	passive = { spy_network_levels_add = @asset_spy_network_max }
+	active = {
+		op_cat_zro_skill_add = @category_mod
+		op_cat_technology_skill_add = @category_mod
+	}
+	possible = {}
+	potential = {}
+	categories = { op_cat_zro op_cat_technology }
+}
+
+asset_zro_drone_military = {
+	appearance = {
+		name_generation_method = random_person
+		portrait_generation_method = random_person
+	}
+	passive = { spy_network_levels_add = @asset_spy_network_max }
+	active = {
+		op_cat_zro_skill_add = @category_mod
+		op_cat_military_skill_add = @category_mod
+	}
+	possible = {}
+	potential = {}
+	categories = { op_cat_zro op_cat_military }
+}
