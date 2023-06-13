@@ -1,7 +1,7 @@
-version="1"
+version="3.8"
 tags={
 	"Diplomacy"
 	"Gameplay"
 }
-name="Psychic Espionage - Zro Operations"
-supported_version="3.4.4"
+name="[3.8] Psychic Espionage - Zro Operations"
+supported_version="3.8.*"

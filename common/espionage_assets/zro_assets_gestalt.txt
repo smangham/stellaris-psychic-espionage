@@ -39,12 +39,12 @@ asset_drone_zro_diplomacy = {
 	}
 	possible = {}
 	potential = {}
-	categories = { op_cat_zro op_cat_diplomacy }
 	appearance = {
 		portrait_generation_method = nongenerated
 		name_generation_method = nongenerated
 		default_portrait = GFX_espionage_asset_hive
 	}
+	categories = { op_cat_zro op_cat_diplomacy }
 }
 
 asset_zro_drone_economy = {
@@ -90,4 +90,66 @@ asset_zro_drone_military = {
 	possible = {}
 	potential = {}
 	categories = { op_cat_zro op_cat_military }
+}
+
+
+asset_zro_drone_manipulation = {
+	passive = { spy_network_levels_add = @asset_spy_network_max }
+	active = {
+		op_cat_zro_skill_add = @category_mod
+		op_cat_manipulation_skill_add = @category_mod
+	}
+	possible = {}
+	potential = {}
+	appearance = {
+		portrait_generation_method = nongenerated
+		name_generation_method = nongenerated
+		default_portrait = GFX_espionage_asset_hive
+	}
+	categories = { op_cat_zro op_cat_manipulation }
+}
+
+asset_zro_drone_sabotage = {
+	appearance = {
+		name_generation_method = random_person
+		portrait_generation_method = random_person
+	}
+	passive = { spy_network_levels_add = @asset_spy_network_max }
+	active = {
+		op_cat_zro_skill_add = @category_mod
+		op_cat_sabotage_skill_add = @category_mod
+	}
+	possible = {}
+	potential = {}
+	categories = { op_cat_zro op_cat_sabotage }
+}
+
+asset_zro_drone_provocation = {
+	appearance = {
+		name_generation_method = random_person
+		portrait_generation_method = random_person
+	}
+	passive = { spy_network_levels_add = @asset_spy_network_max }
+	active = {
+		op_cat_zro_skill_add = @category_mod
+		op_cat_provocation_skill_add = @category_mod
+	}
+	possible = {}
+	potential = {}
+	categories = { op_cat_zro op_cat_provocation }
+}
+
+asset_zro_drone_subterfuge = {
+	appearance = {
+		name_generation_method = random_person
+		portrait_generation_method = random_person
+	}
+	passive = { spy_network_levels_add = @asset_spy_network_max }
+	active = {
+		op_cat_zro_skill_add = @category_mod
+		op_cat_subterfuge_skill_add = @category_mod
+	}
+	possible = {}
+	potential = {}
+	categories = { op_cat_zro op_cat_subterfuge }
 }

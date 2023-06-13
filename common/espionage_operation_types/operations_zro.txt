@@ -1,0 +1,462 @@
+# operation_type_name = {			# Key of the site, used for name lookup etc.
+#	target = <target type>			# Valid target types are country, megastructure, starbase, fleet, army, pop_faction, spynetwork, federation and none (spy network target is the target then)
+#	picture = <sprite key>			# GFX_* sprite key for the operation image
+#	desc = <triggered event desc>	# Description generator for the operation, with scope this=spy network
+#	stages = <int>					# Should match number of defined stages below.
+#	potential = <trigger>			# Trigger checking if a scope with this=spy network is potential to use (this will add/remove this operation without giving the player a reason).
+#	allow = <trigger>				# Trigger checking if a scope with this=spy network is allowed to use (this will toggle enable/disabled mode on buttons etc).
+#	stage = {						# Stage definition, order dependent.
+#		difficulty = <interval int>	# min max interval type. interval is defined either by '<int>' or '{ min = <int> max=<int> }' where the later will randomize a value between min and max.
+#		icon = <string>				# icon gfx type.
+#		event = <string>			# event to fire when finished the state.
+#	}
+#	stage = {...}					# Second stage, the total number of 'stage' entries should match value of 'stages'
+#	on_roll_failed = <effect>		# Effect to fire when a roll fails, with scope this=spy operation.
+#	on_create = <effect>			# Effect to fire upon operation creation, with scope this=spy operation.
+#}
+
+@diff_t0 = 4
+@diff_t1 = 0 #5
+@diff_t2 = 0 #6
+@diff_t3 = 7
+@diff_t4 = 8
+@diff_t5 = 9
+@diff_t6 = 10
+@diff_t7 = 11
+@diff_t8 = 12
+@diff_t9 = 13
+
+@operationTargetedByTimer = 10800 #30 years during which the effects of an operation may be felt by select Spy Network events
+
+# this = operation
+# from = operation target
+
+operation_zro_glamour = {
+	# Boost target's opinion of the proposer, possibly get a favour
+
+	target = none
+	categories = { op_cat_zro op_cat_manipulation }
+	picture = GFX_evt_diplomatic_visit
+	desc = {
+		trigger = { always = yes }
+		text = operation_zro_glamour_desc
+	}
+
+	stages = 2
+
+	resources = {
+		category = operations
+		cost = {
+			sr_zro = 250
+		}
+	}
+
+	spy_power_cost = 60
+	potential = {
+		owner = {
+			has_technology = tech_zro_glamour
+			is_homicidal = no 
+		}
+	}
+	allow = {
+		target = { 
+			is_homicidal = no 
+			is_machine_empire = no
+		}
+		custom_tooltip = {
+			is_running_espionage_operation = no
+			fail_text = operation_one_at_a_time
+		}
+	}
+
+	stage = {
+		difficulty = @diff_t3
+		icon = GFX_espionage_chapter_icon_document
+		event = event_zro_glamour.1000
+	}
+	stage = {
+		difficulty = @diff_t2
+		icon = GFX_espionage_chapter_icon_success
+		event = event_zro_glamour.1001
+	}
+
+	on_roll_failed = {
+		standard_espionage_operation_on_roll_failed = {
+			RANDOM_EVENTS = operation_random_events_low_stakes
+		}
+	}
+	on_create = {
+		target = {
+			set_timed_country_flag = {
+				flag = espionage_operation_targeted_by@root.owner #Used in random Spy Network events
+				days = @operationTargetedByTimer
+			}
+		}
+	}
+}
+
+operation_zro_dominate = {
+	# Affect a leader
+
+	target = none
+	categories = { op_cat_zro op_cat_subterfuge }
+	picture = GFX_evt_spymaster
+	desc = {
+		trigger = { always = yes }
+		text = operation_zro_dominate_desc
+	}
+
+	stages = 2
+
+	resources = {
+		category = operations
+		cost = {
+			sr_zro = 250
+		}
+	}
+
+	spy_power_cost = 40
+	potential = {
+		owner = {
+			has_technology = tech_zro_dominate
+			
+			is_homicidal = no 
+			OR = {
+				has_ethic = ethic_fanatic_authoritarian
+				has_ethic = ethic_fanatic_egalitarian
+				has_ethic = ethic_fanatic_materialist
+				has_ethic = ethic_fanatic_militarist
+				has_ethic = ethic_fanatic_pacifist
+				has_ethic = ethic_fanatic_spiritualist
+				has_ethic = ethic_fanatic_xenophile
+				has_ethic = ethic_fanatic_xenophobe
+			}
+		}
+		
+	}
+	allow = {
+		target = { 
+			is_homicidal = no 
+			any_owned_leader = {
+				is_robotic_species = no
+			}
+		}
+
+		custom_tooltip = {
+			is_running_espionage_operation = no
+			fail_text = operation_one_at_a_time
+		}
+	}
+
+	stage = {
+		difficulty = @diff_t3
+		icon = GFX_espionage_chapter_icon_document
+		event = event_zro_dominate.1000
+	}
+	stage = {
+		difficulty = @diff_t3
+		icon = GFX_espionage_chapter_icon_success
+		event = event_zro_dominate.1001
+	}
+
+	on_roll_failed = {
+		standard_espionage_operation_on_roll_failed = {
+			RANDOM_EVENTS = operation_random_events_low_stakes
+		}
+	}
+	on_create = {
+		target = {
+			set_timed_country_flag = {
+				flag = espionage_operation_targeted_by@root.owner #Used in random Spy Network events
+				days = @operationTargetedByTimer
+			}
+		}
+	}
+}
+
+
+operation_zro_enthrall = {
+	# Convert proportion of target's population to fanatic ethic
+
+	target = none
+	categories = { op_cat_zro op_cat_subterfuge }
+	picture = GFX_evt_spymaster
+	desc = {
+		trigger = { always = yes }
+		text = operation_zro_glamour_desc
+	}
+
+	stages = 2
+
+	resources = {
+		category = operations
+		cost = {
+			sr_zro = 250
+		}
+	}
+
+	spy_power_cost = 40
+	potential = {
+		owner = {
+			has_technology = tech_zro_enthrall
+			is_homicidal = no 
+			OR = {
+				has_ethic = ethic_fanatic_authoritarian
+				has_ethic = ethic_fanatic_egalitarian
+				has_ethic = ethic_fanatic_materialist
+				has_ethic = ethic_fanatic_militarist
+				has_ethic = ethic_fanatic_pacifist
+				has_ethic = ethic_fanatic_spiritualist
+				has_ethic = ethic_fanatic_xenophile
+				has_ethic = ethic_fanatic_xenophobe
+			}
+		}
+	}
+	allow = {
+		target = { 
+			is_homicidal = no
+			any_owned_pop = {
+				is_robot_pop = no
+			}
+		}
+
+		custom_tooltip = {
+			is_running_espionage_operation = no
+			fail_text = operation_one_at_a_time
+		}
+	}
+
+	stage = {
+		difficulty = @diff_t1
+		icon = GFX_espionage_chapter_icon_document
+		event = event_zro_enthrall.1000
+	}
+	stage = {
+		difficulty = @diff_t3
+		icon = GFX_espionage_chapter_icon_success
+		event = event_zro_enthrall.1001
+	}
+
+	on_roll_failed = {
+		standard_espionage_operation_on_roll_failed = {
+			RANDOM_EVENTS = operation_random_events_low_stakes
+		}
+	}
+	on_create = {
+		target = {
+			set_timed_country_flag = {
+				flag = espionage_operation_targeted_by@root.owner #Used in random Spy Network events
+				days = @operationTargetedByTimer
+			}
+		}
+	}
+}
+
+operation_zro_portal = {
+	# Create teleport link between two capitals
+	
+	target = starbase
+	categories = { op_cat_zro op_cat_provocation }
+	picture = GFX_evt_shroud_tunnel
+	desc = {
+		trigger = { always = yes }
+		text = operation_zro_portal_desc
+	}
+
+	stages = 2
+
+	resources = {
+		category = operations
+		cost = {
+			sr_zro = 250
+		}
+	}
+
+	spy_power_cost = 60
+	potential = {
+		owner = {
+			has_technology = tech_zro_portal
+		}
+	}
+	allow = {
+		custom_tooltip = {
+			is_running_espionage_operation = no
+			fail_text = operation_one_at_a_time
+		}
+		NOT = {
+			owner = {
+				has_country_flag = country_flag_zro_portal
+			}
+		}
+		custom_tooltip = {
+			fail_text = operation_sabotage_starbase_no_targets
+			target = {
+				any_owned_starbase = {
+					OR = {
+						AND = {
+							count_starbase_modules = {
+								type != shipyard
+								count > 0
+							}
+							count_starbase_modules = {
+								type != orbital_ring_shipyard
+								count > 0
+							}
+						}
+						has_nonshipyard_starbase_buildings = yes
+					}
+				}
+			}
+		}
+		custom_tooltip = {
+			is_running_espionage_operation = no
+			fail_text = operation_one_at_a_time
+		}
+	}
+	target_allow = {
+		custom_tooltip = {
+			fail_text = operation_sabotage_starbase_no_targets
+			OR = {
+				AND = {
+					count_starbase_modules = {
+						type != shipyard
+						count > 0
+					}
+					count_starbase_modules = {
+						type != orbital_ring_shipyard
+						count > 0
+					}
+				}
+				has_nonshipyard_starbase_buildings = yes
+			}
+		}
+	}
+
+	stage = {
+		difficulty = @diff_t2
+		icon = GFX_espionage_chapter_icon_document
+		event = event_zro_portal.1000
+	}
+	stage = {
+		difficulty = @diff_t4
+		icon = GFX_espionage_chapter_icon_success
+		event = event_zro_portal.1001
+	}
+
+	on_roll_failed = {
+		standard_espionage_operation_on_roll_failed = {
+			RANDOM_EVENTS = operation_random_events_low_stakes
+		}
+	}
+	on_create = {
+		target = {
+			set_timed_country_flag = {
+				flag = espionage_operation_targeted_by@root.owner #Used in random Spy Network events
+				days = @operationTargetedByTimer
+			}
+		}
+	}
+}
+
+operation_zro_storm = {
+	# Create a storm at a target
+	
+	target = starbase
+	categories = { op_cat_zro op_cat_sabotage }
+	picture = GFX_evt_shroud_tunnel
+	desc = {
+		trigger = { always = yes }
+		text = operation_zro_portal_desc
+	}
+
+	stages = 2
+
+	resources = {
+		category = operations
+		cost = {
+			sr_zro = 500
+		}
+	}
+
+	spy_power_cost = 70
+	potential = {
+		owner = {
+			has_technology = tech_zro_storm
+		}
+	}
+	allow = {
+		custom_tooltip = {
+			is_running_espionage_operation = no
+			fail_text = operation_one_at_a_time
+		}
+		custom_tooltip = {
+			fail_text = operation_sabotage_starbase_no_targets
+			target = {
+				any_owned_starbase = {
+					OR = {
+						AND = {
+							count_starbase_modules = {
+								type != shipyard
+								count > 0
+							}
+							count_starbase_modules = {
+								type != orbital_ring_shipyard
+								count > 0
+							}
+						}
+						has_nonshipyard_starbase_buildings = yes
+					}
+					NOT = { solar_system = { has_star_flag = star_flag_zro_storm } }
+				}
+			}
+		}
+		custom_tooltip = {
+			is_running_espionage_operation = no
+			fail_text = operation_one_at_a_time
+		}
+	}
+	target_allow = {
+		custom_tooltip = {
+			fail_text = operation_sabotage_starbase_no_targets
+			OR = {
+				AND = {
+					count_starbase_modules = {
+						type != shipyard
+						count > 0
+					}
+					count_starbase_modules = {
+						type != orbital_ring_shipyard
+						count > 0
+					}
+				}
+				has_nonshipyard_starbase_buildings = yes
+			}
+		}
+		NOT = { solar_system = { has_star_flag = star_flag_zro_storm } }
+	}
+
+	stage = {
+		difficulty = @diff_t2
+		icon = GFX_espionage_chapter_icon_document
+		event = event_zro_storm.1000
+	}
+	stage = {
+		difficulty = @diff_t4
+		icon = GFX_espionage_chapter_icon_success
+		event = event_zro_storm.1001
+	}
+
+	on_roll_failed = {
+		standard_espionage_operation_on_roll_failed = {
+			RANDOM_EVENTS = operation_random_events_low_stakes
+		}
+	}
+	on_create = {
+		target = {
+			set_timed_country_flag = {
+				flag = espionage_operation_targeted_by@root.owner #Used in random Spy Network events
+				days = @operationTargetedByTimer
+			}
+		}
+	}
+}

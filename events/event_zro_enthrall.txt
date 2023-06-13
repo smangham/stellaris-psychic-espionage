@@ -1,0 +1,384 @@
+namespace = event_zro_enthrall
+
+############################
+# ZRO: ENTHRALL
+############################
+# this = operation; from = target (country)
+
+@ConstantZroEnthrallFail = 97
+@ConstantZroEnthrallSucceed = 3
+@ConstantZroAssetChance = 25
+
+# Install operatives
+espionage_operation_event = {
+	id = event_zro_enthrall.1000
+	title = event_zro_enthrall.1000.name
+	espionage_operation = yes
+	desc = {
+		text = event_zro_enthrall.1000.desc
+	}
+	picture = GFX_evt_spy_network
+	show_sound = event_psionic
+	is_triggered_only = yes
+
+	immediate = { }
+
+	option = {
+		name = EXCELLENT
+	}
+}
+
+# Perform enthrall
+espionage_operation_event = {
+	id = event_zro_enthrall.1001
+	title = event_zro_enthrall.1001.name
+	espionage_operation = yes
+	desc = {
+		text = event_zro_enthrall.1001.desc
+	}
+	picture = GFX_evt_surreal_visions
+	show_sound = event_psionic
+	is_triggered_only = yes
+
+	immediate = { }
+
+	option = {
+		name = LAUNCH_OPERATION
+
+		hidden_effect = {
+			owner = {
+				country_event = { 
+					id = event_zro_enthrall.2000
+					days = 3 
+				}
+			}
+		}
+	}
+}
+
+
+# Pop-up to announce it
+country_event = {
+	id = event_zro_enthrall.2000
+	title = event_zro_enthrall.2000.name
+	desc = event_zro_enthrall.2000.desc
+
+	picture = GFX_evt_civil_action
+	show_sound = event_psionic
+	is_triggered_only = yes
+
+	immediate = {
+		export_trigger_value_to_variable = {
+			trigger = relative_encryption_decryption
+			parameters = {
+				target = from.target
+			}
+			variable = variable_zro_enthrall_modifier
+		}
+	}
+
+	option = {
+		name = EXCELLENT
+		# custom_tooltip = event_zro_enthrall_2000_tooltip
+
+		# ~5% chance of switching to our ethic
+		if = {
+			limit = {
+				has_ethic = ethic_fanatic_authoritarian
+			}
+			from.target = {
+				every_owned_pop = {
+					limit = { is_robot_pop = no	}
+					random_list = {
+						1 = {
+							# NONE
+							modifier = {
+								factor = @ConstantZroEnthrallFail
+							}
+							modifier = {
+								OR = {
+									has_trait = trait_psionic
+									has_trait = trait_cybernetic
+								}
+								factor = 2
+							}
+						}
+						1 = {
+							modifier = {
+								factor = @ConstantZroEnthrallSucceed
+							}
+							modifier = {
+								factor = root.variable_zro_enthrall_modifier
+							}
+							pop_change_ethic = ethic_authoritarian
+						}
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_ethic = ethic_fanatic_egalitarian
+			}
+			from.target ={
+				every_owned_pop = {
+					limit = { is_robot_pop = no	}
+					random_list = {
+						1 = {
+							# NONE
+							modifier = {
+								factor = @ConstantZroEnthrallFail
+							}
+							modifier = {
+								OR = {
+									has_trait = trait_psionic
+									has_trait = trait_cybernetic
+								}
+								factor = 2
+							}
+						}
+						1 = {
+							modifier = {
+								factor = @ConstantZroEnthrallSucceed
+							}
+							modifier = {
+								factor = root.variable_zro_enthrall_modifier
+							}
+							pop_change_ethic = ethic_egalitarian
+						}
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_ethic = ethic_fanatic_materialist
+			}
+			from.target ={
+				every_owned_pop = {
+					limit = { is_robot_pop = no	}
+					random_list = {
+						1 = {
+							# NONE
+							modifier = {
+								factor = @ConstantZroEnthrallFail
+							}
+							modifier = {
+								OR = {
+									has_trait = trait_psionic
+									has_trait = trait_cybernetic
+								}
+								factor = 2
+							}
+						}
+						1 = {
+							modifier = {
+								factor = @ConstantZroEnthrallSucceed
+							}
+							modifier = {
+								factor = root.variable_zro_enthrall_modifier
+							}
+							pop_change_ethic = ethic_materialist
+						}
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_ethic = ethic_fanatic_militarist
+			}
+			from.target ={
+				every_owned_pop = {
+					limit = { is_robot_pop = no	}
+					random_list = {
+						1 = {
+							# NONE
+							modifier = {
+								factor = @ConstantZroEnthrallFail
+							}
+							modifier = {
+								OR = {
+									has_trait = trait_psionic
+									has_trait = trait_cybernetic
+								}
+								factor = 2
+							}
+						}
+						1 = {
+							modifier = {
+								factor = @ConstantZroEnthrallSucceed
+							}
+							modifier = {
+								factor = root.variable_zro_enthrall_modifier
+							}
+							pop_change_ethic = ethic_militarist
+						}
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_ethic = ethic_fanatic_pacifist
+			}
+			from.target ={
+				every_owned_pop = {
+					limit = { is_robot_pop = no	}
+					random_list = {
+						1 = {
+							# NONE
+							modifier = {
+								factor = @ConstantZroEnthrallFail
+							}
+							modifier = {
+								OR = {
+									has_trait = trait_psionic
+									has_trait = trait_cybernetic
+								}
+								factor = 2
+							}
+						}
+						1 = {
+							modifier = {
+								factor = @ConstantZroEnthrallSucceed
+							}
+							modifier = {
+								factor = root.variable_zro_enthrall_modifier
+							}
+							pop_change_ethic = ethic_pacifist
+						}
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_ethic = ethic_fanatic_spiritualist
+			}
+			from.target ={
+				every_owned_pop = {
+					limit = { is_robot_pop = no	}
+					random_list = {
+						1 = {
+							# NONE
+							modifier = {
+								factor = @ConstantZroEnthrallFail
+							}
+							modifier = {
+								OR = {
+									has_trait = trait_psionic
+									has_trait = trait_cybernetic
+								}
+								factor = 2
+							}
+						}
+						1 = {
+							modifier = {
+								factor = @ConstantZroEnthrallSucceed
+							}
+							modifier = {
+								factor = root.variable_zro_enthrall_modifier
+							}
+							pop_change_ethic = ethic_pacifist
+						}
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_ethic = ethic_fanatic_xenophile
+			}
+			from.target ={
+				every_owned_pop = {
+					limit = { is_robot_pop = no	}
+					random_list = {
+						1 = {
+							# NONE
+							modifier = {
+								factor = @ConstantZroEnthrallFail
+							}
+							modifier = {
+								OR = {
+									has_trait = trait_psionic
+									has_trait = trait_cybernetic
+								}
+								factor = 2
+							}
+						}
+						1 = {
+							modifier = {
+								factor = @ConstantZroEnthrallSucceed
+							}
+							modifier = {
+								factor = root.variable_zro_enthrall_modifier
+							}
+							pop_change_ethic = ethic_xenophile
+						}
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				has_ethic = ethic_fanatic_xenophobe
+			}
+			from.target ={
+				every_owned_pop = {
+					limit = { is_robot_pop = no	}
+					random_list = {
+						1 = {
+							# NONE
+							modifier = {
+								factor = @ConstantZroEnthrallFail
+							}
+							modifier = {
+								OR = {
+									has_trait = trait_psionic
+									has_trait = trait_cybernetic
+								}
+								factor = 2
+							}
+						}
+						1 = {
+							modifier = {
+								factor = @ConstantZroEnthrallSucceed
+							}
+							modifier = {
+								factor = root.variable_zro_enthrall_modifier
+							}
+							pop_change_ethic = ethic_xenophobe
+						}
+					}
+				}
+			}
+		}
+
+		hidden_effect= {
+			clear_variable = variable_zro_enthrall_modifier
+			locked_random_list = {
+				1 = {
+					modifier = {
+						factor = @ConstantZroAssetChance
+					}
+					country_event = {
+						id = event_zro_asset.1000
+						days = 3
+						random = 3
+					}
+				}
+				100 = {
+					# Nothing
+				}
+			}
+			
+		}
+
+		from.spynetwork = {
+			add_spy_network_level_on_success_effect = { VALUE = -10 }
+			save_event_target_as = event_target_asset_spy_network
+		}
+		destroy_espionage_operation = from
+	}
+}

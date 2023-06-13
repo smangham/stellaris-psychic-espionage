@@ -1,0 +1,12 @@
+megastructure_zro_portal = {
+	entity = entity_zro_portal
+	construction_entity = "construction_platform_entity"
+	portrait = "GFX_evt_shroud_tunnel"
+	place_entity_on_planet_plane = no
+	
+	show_galactic_map_icon = no
+	potential = {
+		always = no
+	}
+	bypass_type = bypass_zro_portal
+}

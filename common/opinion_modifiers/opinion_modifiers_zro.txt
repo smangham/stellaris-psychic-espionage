@@ -1,0 +1,23 @@
+####################
+# OPINION MODIFIERS
+####################
+
+opinion_zro_glamour = {
+	opinion = {
+		base = 200
+	}
+	decay = 10
+	max = 500
+
+	accumulative = yes
+}
+
+opinion_zro_dominate = {
+	opinion = {
+		base = -200
+	}
+	decay = 2
+	max = 500
+
+	accumulative = yes
+}

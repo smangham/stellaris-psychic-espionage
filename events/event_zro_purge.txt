@@ -1,0 +1,35 @@
+namespace = event_zro_purge
+
+
+
+# Purging: Gain resources from forced labor etc
+# A pop has finished purging
+# This = Planet scope
+# From = Country
+# FromFrom = Pop
+planet_event = {
+	id = event_zro_purge.1000
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = {
+		exists = fromfrom 
+		fromfrom = {
+			is_robot_pop = no
+			has_purge_type = { 
+				country = from 
+				type = purge_normal
+			}
+		}
+		is_controlled_by = FROM
+	}
+
+	immediate = {
+		from = {
+			add_resource = {
+				sr_zro = 10
+			}
+		
+		}
+	}
+}

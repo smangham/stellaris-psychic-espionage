@@ -1,0 +1,40 @@
+namespace = event_zro_asset
+
+# Pop-up to announce it
+country_event = {
+	id = event_zro_asset.1000
+	title = event_zro_asset.1000.name
+	desc = event_zro_asset.1000.desc
+
+	picture = GFX_evt_bribery
+	show_sound = event_psionic
+	is_triggered_only = yes
+
+	immediate = {
+	}
+
+	option = {
+		name = EXCELLENT
+		event_target:event_target_asset_spy_network = {
+			if = {
+				limit = {
+					target = {
+						has_ethic = ethic_gestalt_consciousness
+					}
+				}
+				locked_random_list = {
+					1 = { create_espionage_asset = { type = asset_zro_drone_manipulation } }
+					1 = { create_espionage_asset = { type = asset_zro_drone_subterfuge } }
+				}
+			}
+			else = {
+				locked_random_list = {
+					1 = { create_espionage_asset = { type = asset_zro_manipulation } }
+					1 = { create_espionage_asset = { type = asset_zro_sabotage } }
+					1 = { create_espionage_asset = { type = asset_zro_subterfuge } }
+					1 = { create_espionage_asset = { type = asset_zro_provocation } }
+				}
+			}
+		}
+	}
+}

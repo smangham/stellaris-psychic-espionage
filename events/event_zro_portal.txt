@@ -1,0 +1,169 @@
+namespace = event_zro_portal
+
+############################
+# ZRO: PORTAL
+############################
+# this = operation; from = target (country)
+
+@ConstantZroPortalDays = 360
+@ConstantZroPortalRandom = 360
+
+# Install operatives
+espionage_operation_event = {
+	id = event_zro_portal.1000
+	title = event_zro_portal.1000.name
+	espionage_operation = yes
+	desc = {
+		text = event_zro_portal.1000.desc
+	}
+	picture = GFX_evt_spy_network
+	show_sound = event_psionic
+	is_triggered_only = yes
+
+	immediate = { }
+
+	option = {
+		name = EXCELLENT
+	}
+}
+
+# Prepare endpoint
+espionage_operation_event = {
+	id = event_zro_portal.1001
+	title = event_zro_portal.1001.name
+	espionage_operation = yes
+	desc = {
+		text = event_zro_portal.1001.desc
+	}
+	picture = GFX_evt_shroudwalker_enclave
+	show_sound = event_psionic
+	is_triggered_only = yes
+
+	immediate = { }
+
+	option = {
+		name = LAUNCH_OPERATION
+
+		hidden_effect = {
+			owner = {
+				country_event = { 
+					id = event_zro_portal.2000
+					days = 3 
+				}
+			}
+		}
+	}
+}
+
+# Create tunnel
+country_event = {
+	id = event_zro_portal.2000
+	title = event_zro_portal.2000.name
+	desc = event_zro_portal.2000.desc
+
+	picture = GFX_evt_shroud_tunnel
+	show_sound = evn_ove_shroud_tunnel
+	is_triggered_only = yes
+
+	option = {
+		name = EXCELLENT
+		custom_tooltip = event_zro_portal_2000_tooltip
+		hidden_effect = {
+			set_country_flag = country_flag_zro_portal
+			add_seen_bypass_type = bypass_zro_portal
+
+			from.target = {
+				save_event_target_as = event_zro_portal_starbase
+				solar_system = {
+					spawn_megastructure = {
+						type = megastructure_zro_portal
+						owner = root
+						coords_from = prev
+						orbit_distance = 250
+					}
+					random_system_megastructure = {
+						limit = {
+							is_megastructure_type = megastructure_zro_portal
+						}
+						activate_gateway = this
+					}
+				}
+				owner = {
+					country_event = {
+						id = event_zro_portal.2011
+					}
+				}
+			}
+			capital_scope = {
+				solar_system = {
+					spawn_megastructure = {
+						type = megastructure_zro_portal
+						owner = root
+						coords_from = prev
+						orbit_distance = 250
+					}
+					random_system_megastructure = {
+						limit = {
+							is_megastructure_type = megastructure_zro_portal
+						}
+						activate_gateway = this
+					}
+				}
+			}
+
+			country_event = {
+				id = event_zro_portal.2001
+				days = @ConstantZroPortalDays
+				random = @ConstantZroPortalRandom
+			}
+		}
+		
+		from.spynetwork = {
+			add_spy_network_level_on_success_effect = { VALUE = -20 }
+		}
+		destroy_espionage_operation = from
+	}
+}
+
+# Destroy tunnel
+country_event = {
+	id = event_zro_portal.2001
+	title = event_zro_portal.2001.name
+	desc = event_zro_portal.2001.desc
+
+	picture = GFX_evt_vortex
+	show_sound = evn_ove_shroud_tunnel
+	is_triggered_only = yes
+
+	option = {
+		name = ACKNOWLEDGED
+		custom_tooltip = event_zro_portal_2001_tooltip
+		every_megastructure = {
+			limit = {
+				is_megastructure_type = megastructure_zro_portal
+				is_owned_by = root
+			}
+			remove_megastructure = this
+		}
+		remove_country_flag = country_flag_zro_portal
+
+		hidden_effect = {
+
+		}
+	}
+}
+
+# Destroy tunnel: Notify target
+country_event = {
+	id = event_zro_portal.2011
+	title = event_zro_portal.2011.name
+	desc = event_zro_portal.2011.desc
+
+	picture = GFX_evt_vortex
+	show_sound = evn_ove_shroud_tunnel
+	is_triggered_only = yes
+
+	option = {
+		name = ACKNOWLEDGED
+	}
+}

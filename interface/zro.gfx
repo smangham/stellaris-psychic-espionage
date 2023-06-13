@@ -1,0 +1,27 @@
+spriteTypes = {
+	spriteType = {
+		name = "GFX_op_cat_zro"
+		texturefile = "gfx/interface/espionage/asset_type_categories/op_cat_zro_small.dds"
+	}
+	spriteType = {
+		name = "GFX_espionage_op_cat_zro_sign"
+		texturefile = "gfx/interface/espionage/espionage_zro_sign.dds"
+	}
+
+	spriteType = {
+		name = "GFX_operations_chapter_op_cat_zro"
+		textureFile = "gfx/interface/espionage/operations/operations_chapter0_zro.dds"
+		noOfFrames = 3
+	}
+
+	spriteType = {
+		name = "GFX_op_cat_zro_ui_icon"
+		texturefile = "gfx/interface/espionage/operations/operations_zro_icon.dds"
+	}
+
+	spriteType = {
+		name = "GFX_espionage_chapter_progress_icon_op_cat_zro"
+		textureFile = "gfx/interface/espionage/chapter_in_progress_zro.dds"
+		noOfFrames = 3
+	}
+}

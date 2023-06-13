@@ -1,0 +1,44 @@
+zro_factory = {
+	category = specialist
+	condition_string = SPECIALIST_JOB_TRIGGER
+	building_icon = building_zro_factory
+	clothes_texture_index = 3
+
+	possible_pre_triggers = {
+		has_owner = yes
+		is_being_purged = no
+		is_being_assimilated = no
+		is_sapient = yes
+	}
+
+	possible_precalc = can_fill_specialist_job
+	possible = {
+		complex_specialist_job_check_trigger = yes
+		has_trait = trait_psionic
+	}
+
+	resources = {
+		category = planet_priests
+		produces = {
+			sr_zro = 1
+		}
+		upkeep = {
+			unity = 30
+		}
+	}
+
+	weight = {
+		weight = @specialist_job_weight
+
+		modifier = {
+			factor = 0.1
+			can_take_servant_job = yes
+		}
+
+		modifier = {
+			factor = 0.1
+			is_enslaved = yes
+			has_slavery_type = { type = slavery_indentured }
+		}
+	}
+}

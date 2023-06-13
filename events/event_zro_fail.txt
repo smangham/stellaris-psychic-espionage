@@ -1,0 +1,186 @@
+namespace = event_zro_fail
+
+@RandomOperationEventTimer = 600
+@ZroRestockAmount = 250
+
+# Open a portal and wisps pour out
+
+# Target 
+
+# Backlash costs 6 months of Unity
+
+# Need 250 Zro
+
+
+### INSUFFICIENT ZRO
+# from = operation; fromfrom = target
+country_event = {
+	id = event_zro_fail.1000
+	title = event_zro_fail.1000.name
+	desc = event_zro_fail.1000.desc
+	picture = GFX_evt_cover_blown
+	show_sound = event_comms_cutoff
+	is_triggered_only = yes
+
+	trigger = {
+		exists = from
+		is_machine_empire = no
+		from.target = { is_gestalt = yes }
+	}
+
+	immediate = {
+		from = {
+			set_espionage_operation_progress_locked = yes
+			target = { set_country_flag = drones_apprehended_operatives@root }
+		}
+		set_timed_country_flag = {
+			flag = recent_op_zro_insufficient
+			days = @RandomOperationEventTimer
+		}
+	}
+
+	# The friendlier the target, the less chance of mishap.
+	option = { #Needs diplomacy (very friendly)
+		name = operation.5010.a
+		exclusive_trigger = {
+			OR = {
+				opinion_level = {
+					who = from.target
+					level >= excellent
+				}
+				is_improving_relations_with = from.target
+			}
+		}
+		locked_random_list = {
+			8 = { country_event = { id = operation.5011 days = 4 } }
+			2 = { from = { operation_random_events_coverblown = yes } }
+		}
+		ai_chance = { factor = 1 }
+	}
+	option = { #Needs diplomacy (friendly)
+		name = operation.5010.a
+		exclusive_trigger = {
+			opinion_level = {
+				who = from.target
+				level >= neutral
+			}
+		}
+		locked_random_list = {
+			6 = { country_event = { id = operation.5011 days = 4 } }
+			4 = { from = { operation_random_events_coverblown = yes } }
+		}
+		ai_chance = { factor = 1 }
+	}
+	option = { #Needs diplomacy (unfriendly)
+		name = operation.5010.a
+		exclusive_trigger = {
+			OR = {
+				opinion_level = {
+					who = from.target
+					level < neutral
+				}
+				from.target = {
+					has_country_flag = drones_apprehended_operatives@root
+				}
+			}
+		}
+		locked_random_list = {
+			4 = { country_event = { id = operation.5011 days = 4 } }
+			6 = { from = { operation_random_events_coverblown = yes } }
+		}
+		ai_chance = { factor = 1 }
+	}
+	option = { #Expend an asset
+		name = operation.5010.b
+		custom_tooltip = tooltip_espionage_asset_guaranteed_resume
+		icon = {
+			icon = GFX_espionage_asset_icon
+			text = ESPIONAGE_OPERATION_ASSET_EVENT_OPTION
+		}
+		trigger = {
+			from = {
+				OR = {
+					AND = {
+						has_espionage_category = op_cat_manipulation
+						has_espionage_asset_manipulation = yes
+					}
+					AND = {
+						has_espionage_category = op_cat_sabotage
+						has_espionage_asset_sabotage = yes
+					}
+					AND = {
+						has_espionage_category = op_cat_subterfuge
+						has_espionage_asset_subterfuge = yes
+					}
+				}
+			}
+		}
+		from = {
+			if = {
+				limit = { has_espionage_category = op_cat_manipulation }
+				spynetwork = { destroy_espionage_asset_manipulation = yes }
+			}
+			else_if = {
+				limit = { has_espionage_category = op_cat_sabotage }
+				spynetwork = { destroy_espionage_asset_sabotage = yes }
+			}
+			else_if = {
+				limit = { has_espionage_category = op_cat_subterfuge }
+				spynetwork = { destroy_espionage_asset_subterfuge = yes }
+			}
+		}
+		hidden_effect = {
+			country_event = { id = operation.5011 days = 4 }
+		}
+		ai_chance = { factor = 10 }
+	}
+	option = {
+		name = event_zro_fail.1000.a
+		allow = {
+			resource_stockpile_compare = {
+				resource = sr_zro
+				value >= @ZroRestockAmount
+			}
+		}
+		add_resource = { sr_zro = -250}
+	}
+
+	after = {
+		from = { set_espionage_operation_progress_locked = no }
+	}
+}
+
+# Apprehended by Security Drones: Successful diplomacy
+# fromfrom = operation; fromfromfrom = target
+country_event = {
+	id = event_zro_fail.5011
+	title = event_zro_fail.5011.name
+	desc = {
+		trigger = { is_hive_empire = no }
+		text = operation.5011.desc
+	}
+	desc = {
+		trigger = { is_hive_empire = yes }
+		text = operation.5011.desc.hive
+	}
+	picture = {
+		trigger = { is_hive_empire = no }
+		picture = GFX_evt_spymaster
+	}
+	picture = {
+		trigger = { is_hive_empire = yes }
+		picture = GFX_evt_synth_organic_relations
+	}
+	show_sound = event_default
+	is_triggered_only = yes
+
+	trigger = {
+		exists = fromfrom
+	}
+
+	immediate = { }
+
+	option = {
+		name = GOOD
+	}
+}

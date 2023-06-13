@@ -1,0 +1,47 @@
+building_zro_factory = {
+	base_buildtime = @b2_time
+
+	category = resource
+
+	potential = {
+		exists = owner
+		owner = {
+			has_technology = tech_zro_factory
+		}
+		NOT = { has_modifier = slave_colony }
+	}
+
+	destroy_trigger = {
+		exists = owner
+		OR = {
+			owner = {
+				NOT = { 
+					has_technology = tech_zro_factory
+				}
+			}
+			has_modifier = slave_colony
+		}
+	}
+
+	resources = {
+		category = planet_buildings
+		cost = {
+			minerals = @b2_minerals
+		}
+		upkeep = {
+			energy = @b2_upkeep
+		}
+	}
+
+	planet_modifier = {
+		job_zro_factory_add = 2
+	}
+
+	prerequisites = {
+		"tech_zro_factory"
+	}
+
+	show_tech_unlock_if = {
+		has_ascension_perk = ap_mind_over_matter
+	}
+}

@@ -1,0 +1,20 @@
+##### Extra dimensional
+entity = {
+	name = "entity_zro_portal"
+	locator = { name = "core" position = { 0 -15 0 } rotation = { -25 0 15} }
+
+	scale = 7
+	erosion_out = 3
+	attach = { core = "extra_dimensional_cracks_entity" }
+	attach = { core = "extra_dimensional_lights_entity" }
+	attach = { core = "extra_dimensional_color_entity" }
+	attach = { core = "extra_dimensional_stars_entity" }
+	attach = { core = "extra_dimensional_crisis_rift_sides_entity" }
+	attach = { core = "extra_dimensional_crisis_rift_2_sides_entity" }
+	default_state = "idle"
+	
+	state = { 		name = "idle"  state_time = 20 looping = yes
+		start_event = { 			trigger_once = yes 			sound = { soundeffect = "sfx_amb_crisis_extradimensional" } }
+		}
+	cull_radius = 20000
+}

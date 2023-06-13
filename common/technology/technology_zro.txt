@@ -1,0 +1,477 @@
+# ##################
+# Psionics
+# ##################
+
+#Glamour 
+tech_zro_glamour = {
+	cost = @tier3cost2
+	area = society
+	tier = 3
+	category = { psionics }
+	is_rare = yes
+	prerequisites = { "tech_psionic_theory" }
+	weight = @tier3weight2
+	is_reverse_engineerable = no
+
+	potential = {
+		NOT = { 
+			has_ethic = ethic_gestalt_consciousness 
+		}
+		is_robot_empire = no
+	}
+
+	prereqfor_desc = {
+		diplo_action = {
+			title = tech_zro_glamour_unlock_name
+			desc = tech_zro_glamour_unlock_desc
+		}
+	}
+
+	weight_modifier = {
+		factor = 0.5
+		modifier = {
+			factor = 0.50
+			NOT = {
+				research_leader = {
+					area = society
+					has_trait = "leader_trait_expertise_psionics"
+				}
+			}
+		}
+		modifier = {
+			factor = 2
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_expertise_psionics"
+			}
+		}
+		modifier = {
+			factor = @ap_technological_ascendancy_rare_tech
+			has_ascension_perk = ap_technological_ascendancy
+		}
+		modifier = {
+			factor = 3
+			any_owned_planet = {
+				has_modifier = pm_shroudwalker_teacher
+			}
+		}
+		modifier = {
+			factor = 4
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_maniacal"
+			}
+		}
+	}
+
+	ai_weight = {
+		modifier = {
+			factor = 1.25
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_expertise_psionics"
+			}
+		}
+	}
+}
+
+tech_zro_enthrall = {
+	cost = @tier3cost3
+	area = society
+	tier = 3
+	category = { psionics }
+	is_rare = yes
+	prerequisites = { "tech_telepathy" }
+	weight = @tier3weight3
+	is_reverse_engineerable = no
+
+	potential = {
+		NOT = { has_ethic = ethic_gestalt_consciousness }
+		is_robot_empire = no
+	}
+
+	prereqfor_desc = {
+		diplo_action = {
+			title = tech_zro_enthrall_unlock_name
+			desc = tech_zro_enthrall_unlock_desc
+		}
+	}
+
+	weight_modifier = {
+		factor = 0.5
+		modifier = {
+			factor = 0.50
+			NOT = {
+				research_leader = {
+					area = society
+					has_trait = "leader_trait_expertise_psionics"
+				}
+			}
+		}
+		modifier = {
+			factor = @ap_technological_ascendancy_rare_tech
+			has_ascension_perk = ap_technological_ascendancy
+		}
+		modifier = {
+			factor = 3
+			any_owned_planet = {
+				has_modifier = pm_shroudwalker_teacher
+			}
+		}
+		modifier = {
+			factor = 2
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_maniacal"
+			}
+		}
+		modifier = {
+			factor = 4
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_expertise_psionics"
+			}
+		}
+	}
+
+	ai_weight = {
+		modifier = {
+			factor = 1.25
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_expertise_psionics"
+			}
+		}
+	}
+}
+
+tech_zro_dominate = {
+	cost = @tier4cost1
+	area = society
+	tier = 4
+	category = { psionics }
+	is_rare = yes
+	prerequisites = { "tech_telepathy" }
+	weight = @tier4weight1
+	is_reverse_engineerable = no
+
+	potential = {
+		NOT = { has_ethic = ethic_gestalt_consciousness }
+		is_robot_empire = no
+	}
+
+	prereqfor_desc = {
+		diplo_action = {
+			title = tech_zro_dominate_unlock_name
+			desc = tech_zro_dominate_unlock_desc
+		}
+	}
+
+	weight_modifier = {
+		factor = 0.5
+		modifier = {
+			factor = 0.50
+			NOT = {
+				research_leader = {
+					area = society
+					has_trait = "leader_trait_expertise_psionics"
+				}
+			}
+		}
+		modifier = {
+			factor = 2
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_expertise_psionics"
+			}
+		}
+		modifier = {
+			factor = @ap_technological_ascendancy_rare_tech
+			has_ascension_perk = ap_technological_ascendancy
+		}
+		modifier = {
+			factor = 3
+			any_owned_planet = {
+				has_modifier = pm_shroudwalker_teacher
+			}
+		}
+		modifier = {
+			factor = 4
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_maniacal"
+			}
+		}
+	}
+
+	ai_weight = {
+		modifier = {
+			factor = 1.25
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_expertise_psionics"
+			}
+		}
+	}
+}
+
+tech_zro_portal = {
+	cost = @tier5cost1
+	area = society
+	tier = 5
+	category = { psionics }
+	ai_update_type = all
+	is_rare = yes
+	is_dangerous = no
+	prerequisites = { "tech_telepathy" }
+	weight = @tier5weight1
+	is_reverse_engineerable = no
+
+	potential = {
+		NOT = { has_ethic = ethic_gestalt_consciousness }
+		is_robot_empire = no
+	}
+
+	prereqfor_desc = {
+		diplo_action = {
+			title = tech_zro_portal_unlock_name
+			desc = tech_zro_portal_unlock_desc
+		}
+	}
+
+	weight_modifier = {
+		factor = 0.5
+		modifier = {
+			factor = 0.50
+			NOT = {
+				research_leader = {
+					area = society
+					has_trait = "leader_trait_expertise_psionics"
+				}
+			}
+		}
+		modifier = {
+			factor = 2
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_expertise_psionics"
+			}
+		}
+		modifier = {
+			factor = @ap_technological_ascendancy_rare_tech
+			has_ascension_perk = ap_technological_ascendancy
+		}
+		modifier = {
+			factor = 3
+			any_owned_planet = {
+				has_modifier = pm_shroudwalker_teacher
+			}
+		}
+		modifier = {
+			factor = 4
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_maniacal"
+			}
+		}
+	}
+}
+
+tech_zro_storm = {
+	cost = @tier5cost2
+	area = society
+	tier = 5
+	category = { psionics }
+	ai_update_type = all
+	is_rare = yes
+	is_dangerous = no
+	prerequisites = { "tech_telepathy" }
+	weight = @tier5weight2
+	is_reverse_engineerable = no
+
+	potential = {
+		NOT = { has_ethic = ethic_gestalt_consciousness }
+		is_robot_empire = no
+	}
+
+	prereqfor_desc = {
+		diplo_action = {
+			title = tech_zro_storm_unlock_name
+			desc = tech_zro_storm_unlock_desc
+		}
+	}
+
+	weight_modifier = {
+		factor = 0.5
+		modifier = {
+			factor = 0.50
+			NOT = {
+				research_leader = {
+					area = society
+					has_trait = "leader_trait_expertise_psionics"
+				}
+			}
+		}
+		modifier = {
+			factor = 2
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_expertise_psionics"
+			}
+		}
+		modifier = {
+			factor = @ap_technological_ascendancy_rare_tech
+			has_ascension_perk = ap_technological_ascendancy
+		}
+		modifier = {
+			factor = 3
+			any_owned_planet = {
+				has_modifier = pm_shroudwalker_teacher
+			}
+		}
+		modifier = {
+			factor = 4
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_maniacal"
+			}
+		}
+	}
+}
+
+#################
+# RESOURCES
+#################
+
+tech_zro_purge = {
+	cost = @tier3cost1
+	area = society
+	tier = 3
+	category = { psionics }
+	is_rare = yes
+	prerequisites = { "tech_psionic_theory" }
+	weight = @tier3weight2
+	is_reverse_engineerable = no
+
+	potential = {
+		NOT = { 
+			has_ethic = ethic_gestalt_consciousness 
+		}
+		is_robot_empire = no
+		allows_purge = yes
+	}
+
+	prereqfor_desc = {
+		custom = {
+			title = tech_zro_purge_unlock_name
+			desc = tech_zro_purge_unlock_desc
+		}
+	}
+
+	weight_modifier = {
+		factor = 0.5
+		modifier = {
+			factor = 0.50
+			NOT = {
+				research_leader = {
+					area = society
+					has_trait = "leader_trait_expertise_psionics"
+				}
+			}
+		}
+		modifier = {
+			factor = 2
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_expertise_psionics"
+			}
+		}
+		modifier = {
+			factor = @ap_technological_ascendancy_rare_tech
+			has_ascension_perk = ap_technological_ascendancy
+		}
+		modifier = {
+			factor = 4
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_maniacal"
+			}
+		}
+	}
+
+	ai_weight = {
+		modifier = {
+			factor = 1.25
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_expertise_psionics"
+			}
+		}
+	}	
+}
+
+# Zro factory 
+tech_zro_factory = {
+	cost = @tier3cost3
+	area = society
+	tier = 3
+	category = { psionics }
+	is_rare = yes
+	prerequisites = { "tech_psionic_theory" }
+	weight = @tier3weight2
+	is_reverse_engineerable = no
+
+	potential = {
+		NOT = { 
+			has_ethic = ethic_gestalt_consciousness 
+		}
+		is_robot_empire = no
+	}
+
+	weight_modifier = {
+		factor = 0.5
+		modifier = {
+			factor = 0.50
+			NOT = {
+				research_leader = {
+					area = society
+					has_trait = "leader_trait_expertise_psionics"
+				}
+			}
+		}
+		modifier = {
+			factor = 2
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_expertise_psionics"
+			}
+		}
+		modifier = {
+			factor = @ap_technological_ascendancy_rare_tech
+			has_ascension_perk = ap_technological_ascendancy
+		}
+		modifier = {
+			factor = 3
+			any_owned_planet = {
+				has_modifier = pm_shroudwalker_teacher
+			}
+		}
+		modifier = {
+			factor = 4
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_maniacal"
+			}
+		}
+	}
+
+	ai_weight = {
+		modifier = {
+			factor = 1.25
+			research_leader = {
+				area = society
+				has_trait = "leader_trait_expertise_psionics"
+			}
+		}
+	}
+}

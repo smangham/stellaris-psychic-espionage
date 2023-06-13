@@ -90,3 +90,66 @@ asset_zro_military = {
 	potential = {}
 	categories = { op_cat_zro op_cat_military }
 }
+
+
+asset_zro_manipulation = {
+	appearance = {
+		name_generation_method = random_person
+		portrait_generation_method = random_person
+	}
+	passive = { spy_network_levels_add = @asset_spy_network_max }
+	active = {
+		op_cat_zro_skill_add = @category_mod
+		op_cat_manipulation_skill_add = @category_mod
+	}
+	possible = {}
+	potential = {}
+	categories = { op_cat_zro op_cat_manipulation }
+}
+
+asset_zro_subterfuge = {
+	appearance = {
+		name_generation_method = random_person
+		portrait_generation_method = random_person
+	}
+
+	passive = { spy_network_levels_add = @asset_spy_network_max }
+	active = {
+		op_cat_zro_skill_add = @category_mod
+		op_cat_subterfuge_skill_add = @category_mod
+	}
+	possible = {}
+	potential = {}
+	categories = { op_cat_subterfuge op_cat_subterfuge }
+}
+
+asset_zro_sabotage = {
+	appearance = {
+		name_generation_method = random_person
+		portrait_generation_method = random_person
+	}
+
+	passive = { spy_network_levels_add = @asset_spy_network_max }
+	active = {
+		op_cat_zro_skill_add = @category_mod
+		op_cat_sabotage_skill_add = @category_mod
+	}
+	possible = {}
+	potential = {}
+	categories = { op_cat_zro op_cat_sabotage }
+}
+
+asset_zro_provocation = {
+	appearance = {
+		name_generation_method = random_person
+		portrait_generation_method = random_person
+	}
+	passive = { spy_network_levels_add = @asset_spy_network_max }
+	active = {
+		op_cat_zro_skill_add = @category_mod
+		op_cat_provocation_skill_add = @category_mod
+	}
+	possible = {}
+	potential = {}
+	categories = { op_cat_zro op_cat_provocation }
+}

@@ -1,0 +1,106 @@
+leader_trait_zro_dominate_negative_admiral = {
+	icon = "gfx/interface/icons/traits/trait_zro_dominate.dds"
+	
+	self_modifier = {
+		species_leader_exp_gain = -1.00
+	}
+	modifier = {
+		all_technology_research_speed = -0.50
+
+		planet_stability_add = -10
+
+		ship_disengage_chance_mult = -0.50
+		ship_evasion_mult = -0.50
+
+		army_disengage_chance_mult = -0.50
+		army_morale = -0.50
+	}
+
+	ai_weight = {
+		weight = 0
+	}
+
+	leader_class = { admiral }
+	leader_trait = all
+	initial = no
+	randomized = no
+}
+
+leader_trait_zro_dominate_negative_general = {
+	icon = "gfx/interface/icons/traits/trait_zro_dominate.dds"
+	
+	self_modifier = {
+		species_leader_exp_gain = -1.00
+	}
+	modifier = {
+		army_disengage_chance_mult = -0.50
+		army_morale = -0.50
+	}
+
+	ai_weight = {
+		weight = 0
+	}
+
+	leader_class = { general }
+	leader_trait = all
+	initial = no
+	randomized = no
+}
+
+leader_trait_zro_dominate_negative_governor = {
+	icon = "gfx/interface/icons/traits/trait_zro_dominate.dds"
+	
+	self_modifier = {
+		species_leader_exp_gain = -1.00
+	}
+	modifier = {
+		planet_stability_add = -10
+	}
+
+	ai_weight = {
+		weight = 0
+	}
+
+	leader_class = { governor }
+	leader_trait = all
+	initial = no
+	randomized = no
+}
+
+leader_trait_zro_dominate_negative_scientist = {
+	icon = "gfx/interface/icons/traits/trait_zro_dominate.dds"
+	
+	self_modifier = {
+		species_leader_exp_gain = -1.00
+	}
+	modifier = {
+		all_technology_research_speed = -0.50
+	}
+
+	ai_weight = {
+		weight = 0
+	}
+
+	leader_class = { scientist }
+	leader_trait = all
+	initial = no
+	randomized = no
+}
+
+leader_trait_zro_dominate_positive = {
+	icon = "gfx/interface/icons/traits/trait_zro_dominate.dds"
+	
+	self_modifier = {
+		species_leader_exp_gain = -1.00
+		leaders_upkeep_mult = -1.00
+	}
+	modifier = {
+		pop_government_ethic_attraction = 0.5
+		army_morale = 0.50
+	}
+
+	leader_class = { admiral scientist general governor }
+	leader_trait = all
+	initial = no
+	randomized = no
+}

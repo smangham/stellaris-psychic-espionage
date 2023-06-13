@@ -1,0 +1,80 @@
+namespace = event_zro_glamour
+
+############################
+# ZRO: GLAMOUR
+############################
+# this = operation; from = target (country)
+
+# Install operatives
+espionage_operation_event = {
+	id = event_zro_glamour.1000
+	title = event_zro_glamour.1000.name
+	espionage_operation = yes
+	desc = {
+		text = event_zro_glamour.1000.desc
+	}
+	picture = GFX_evt_spy_network
+	show_sound = event_psionic
+	is_triggered_only = yes
+
+	immediate = { }
+
+	option = {
+		name = EXCELLENT
+	}
+}
+
+# Perform glamour
+espionage_operation_event = {
+	id = event_zro_glamour.1001
+	title = event_zro_glamour.1001.name
+	espionage_operation = yes
+	desc = {
+		text = event_zro_glamour.1001.desc
+	}
+	picture = GFX_evt_surreal_visions
+	show_sound = event_psionic
+	is_triggered_only = yes
+
+	immediate = { }
+
+	option = {
+		name = LAUNCH_OPERATION
+
+		hidden_effect = {
+			owner = {
+				country_event = { 
+					id = event_zro_glamour.2000
+					days = 3 
+				}
+			}
+		}
+	}
+}
+
+
+# Pop-up to announce it
+country_event = {
+	id = event_zro_glamour.2000
+	title = event_zro_glamour.2000.name
+	desc = event_zro_glamour.2000.desc
+
+	picture = GFX_evt_diplomatic_visit
+	show_sound = event_psionic
+	is_triggered_only = yes
+
+	option = {
+		name = EXCELLENT
+		
+		from.spynetwork = {
+			add_spy_network_level_on_success_effect = { VALUE = -15 }
+		}
+		from.target = {
+			add_opinion_modifier = {
+				who = root
+				modifier = opinion_zro_glamour
+			}
+		}
+		destroy_espionage_operation = from
+	}
+}

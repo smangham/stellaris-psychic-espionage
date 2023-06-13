@@ -1,0 +1,500 @@
+namespace = event_zro_dominate
+
+############################
+# ZRO: DOMINATE
+############################
+# this = operation; from = target (country)
+
+@ConstantZroDominateDays = 360
+@ConstantZroDominateRandom = 360
+
+@ConstantZroDominateDefectImmediateSuccessQuiet = 3
+@ConstantZroDominateDefectImmediateSuccessLoud = 4
+@ConstantZroDominateDefectImmediateFailQuiet = 1
+@ConstantZroDominateDefectImmediateFailLoud = 2
+@ConstantZroDominateDefectDelayedSuccessQuiet = 4
+@ConstantZroDominateDefectDelayedSuccessLoud = 2
+@ConstantZroDominateDefectDelayedFailQuiet = 3
+@ConstantZroDominateDefectDelayedFailLoud = 1
+
+# Install operatives
+espionage_operation_event = {
+	id = event_zro_dominate.1000
+	title = event_zro_dominate.1000.name
+	espionage_operation = yes
+	desc = {
+		text = event_zro_dominate.1000.desc
+	}
+	picture = GFX_evt_spy_network
+	show_sound = event_psionic
+	is_triggered_only = yes
+
+	immediate = { }
+
+	option = {
+		name = EXCELLENT
+
+		hidden_effect = {
+			owner = {
+				country_event = { 
+					id = event_zro_dominate.2000
+					days = 3 
+				}
+			}
+		}
+	}
+}
+
+# Perform domination
+espionage_operation_event = {
+	id = event_zro_dominate.1001
+	title = event_zro_dominate.1001.name
+	espionage_operation = yes
+	desc = {
+		text = event_zro_dominate.1001.desc
+	}
+	picture = GFX_evt_spymaster
+	show_sound = event_psionic
+	is_triggered_only = yes
+
+	immediate = { }
+
+	option = {
+		name = LAUNCH_OPERATION
+
+		hidden_effect = {
+			owner = {
+				country_event = { 
+					id = event_zro_dominate.2001
+					days = 3 
+				}
+			}
+		}
+	}
+}
+
+
+# Pop-up to select the leader
+country_event = {
+	id = event_zro_dominate.2000
+	title = event_zro_dominate.2000.name
+	desc = event_zro_dominate.2000.desc
+
+	picture = GFX_evt_spymaster
+	show_sound = event_psionic
+	is_triggered_only = yes
+
+	immediate = {
+		from.target = {
+			random_owned_leader = {
+				limit = {
+					is_robotic_species = no
+					NOT = {
+						has_leader_flag = leader_flag_zro_dominate_option
+						OR = {
+							has_trait = leader_trait_admiral_chosen
+							has_trait = leader_trait_general_chosen
+							has_trait = leader_trait_governor_chosen
+							has_trait = leader_trait_scientist_chosen
+						}
+						leader_class = ruler
+					}
+				}
+				save_event_target_as = leader_1
+				set_leader_flag = leader_flag_zro_dominate_option
+			}
+			random_owned_leader = {
+				limit = {
+					is_robotic_species = no
+					NOT = {
+						has_leader_flag = leader_flag_zro_dominate_option
+						OR = {
+							has_trait = leader_trait_admiral_chosen
+							has_trait = leader_trait_general_chosen
+							has_trait = leader_trait_governor_chosen
+							has_trait = leader_trait_scientist_chosen
+						}
+						leader_class = ruler
+					}
+				}
+				save_event_target_as = leader_2
+				set_leader_flag = leader_flag_zro_dominate_option
+			}
+			random_owned_leader = {
+				limit = {
+					is_robotic_species = no
+					NOT = {
+						has_leader_flag = leader_flag_zro_dominate_option
+						OR = {
+							has_trait = leader_trait_admiral_chosen
+							has_trait = leader_trait_general_chosen
+							has_trait = leader_trait_governor_chosen
+							has_trait = leader_trait_scientist_chosen
+						}
+						leader_class = ruler
+					}
+				}
+				save_event_target_as = leader_3
+				set_leader_flag = leader_flag_zro_dominate_option
+			}
+		}
+	}
+
+	option = {
+		name = "event_zro_dominate.2000.leader_1"
+		event_target:leader_1 = {
+			set_leader_flag = leader_flag_zro_dominate
+		}
+	}
+	option = {
+		name = "event_zro_dominate.2000.leader_2"
+		event_target:leader_2 = {
+			set_leader_flag = leader_flag_zro_dominate
+		}
+	}
+	option = {
+		name = "event_zro_dominate.2000.leader_3"
+		event_target:leader_3 = {
+			set_leader_flag = leader_flag_zro_dominate
+		}
+	}
+	after = {
+		event_target:leader_1 = { remove_leader_flag = leader_flag_zro_dominate_option }
+		event_target:leader_2 = { remove_leader_flag = leader_flag_zro_dominate_option }
+		event_target:leader_3 = { remove_leader_flag = leader_flag_zro_dominate_option }
+	}
+}
+
+# Mind-control applied
+country_event = {
+	id = event_zro_dominate.2001
+	title = event_zro_dominate.2001.name
+	desc = event_zro_dominate.2001.desc
+
+	picture = GFX_evt_psionics
+	show_sound = event_psionic
+	is_triggered_only = yes
+
+	immediate = {
+		save_event_target_as = event_target_zro_dominate_aggressor
+		from.target = {
+			random_owned_leader = {
+				limit = {
+					has_leader_flag = leader_flag_zro_dominate		
+				}
+				save_event_target_as = event_target_zro_dominate_leader
+			}
+			save_event_target_as = event_target_zro_dominate_country
+		}
+	}
+
+	option = {
+		name = event_zro_dominate.2001.delay
+		
+		event_target:event_target_zro_dominate_leader = {
+			remove_leader_flag = leader_flag_zro_dominate
+			if = {
+				limit = { leader_class = admiral }
+				add_trait = leader_trait_zro_dominate_negative_admiral
+			}
+			else_if = {
+				limit = { leader_class = scientist }
+				add_trait = leader_trait_zro_dominate_negative_scientist
+			}
+			else_if = {
+				limit = { leader_class = general }
+				add_trait = leader_trait_zro_dominate_negative_general
+			}
+			else_if = {
+				limit = { leader_class = governor }
+				add_trait = leader_trait_zro_dominate_negative_governor
+			}
+			set_cooldown = 36000
+		}
+
+		random_list = {
+			1 = {
+				# Successful defection after time
+				modifier = {
+					factor = @ConstantZroDominateDefectDelayedSuccessQuiet
+				}
+				country_event = {
+					id = event_zro_dominate.3001
+					days = @ConstantZroDominateDays
+					random = @ConstantZroDominateRandom
+				}
+			}
+			1 = {
+				# Successful defection after time, but found out
+				modifier = {
+					factor = @ConstantZroDominateDefectDelayedSuccessLoud
+				}
+				country_event = {
+					id = event_zro_dominate.3011
+					days = @ConstantZroDominateDays
+					random = @ConstantZroDominateRandom
+				}
+			}
+			1 = {
+				# Failed defection after time
+				modifier = {
+					factor = @ConstantZroDominateDefectDelayedFailQuiet
+				}
+				country_event = {
+					id = event_zro_dominate.3002
+					days = @ConstantZroDominateDays
+					random = @ConstantZroDominateRandom
+				}				
+			}
+			1 = {
+				# Failed defection after time, and found out
+				modifier = {
+					factor = @ConstantZroDominateDefectDelayedFailLoud
+				}
+				country_event = {
+					id = event_zro_dominate.3012
+					days = @ConstantZroDominateDays
+					random = @ConstantZroDominateRandom
+				}				
+			}
+		}
+
+		from.spynetwork = {
+			add_spy_network_level_on_success_effect = { VALUE = -20 }
+		}
+		destroy_espionage_operation = from
+	}
+
+	option = {
+		name = event_zro_dominate.2001.immediate
+
+		random_list = {
+			1 = {
+				# Successful defection immediately
+				modifier = {
+					factor = @ConstantZroDominateDefectImmediateSuccessQuiet
+				}
+				country_event = {
+					id = event_zro_dominate.3001
+					days = 3
+				}
+			}
+			1 = {
+				# Successful defection immediately, but found out
+				modifier = {
+					factor = @ConstantZroDominateDefectImmediateSuccessLoud
+				}
+				country_event = {
+					id = event_zro_dominate.3011
+					days = 3
+				}
+			}
+			1 = {
+				# Failed defection immediately
+				modifier = {
+					factor = @ConstantZroDominateDefectImmediateFailQuiet
+				}
+				country_event = {
+					id = event_zro_dominate.3002
+					days = 3
+				}				
+			}
+			
+			1 = {
+				# Failed defection immediately and found out
+				modifier = {
+					factor = @ConstantZroDominateDefectImmediateFailLoud
+				}
+				country_event = {
+					id = event_zro_dominate.3012
+					days = 3
+				}				
+			}
+		}
+
+		from.spynetwork = {
+			add_spy_network_level_on_success_effect = { VALUE = -20 }
+		}
+		destroy_espionage_operation = from
+	}
+}
+
+country_event = {
+	id = event_zro_dominate.3001
+	title = event_zro_dominate.3001.name
+	desc = event_zro_dominate.3001.desc
+
+	picture = GFX_evt_imperial_vassal
+	show_sound = event_psionic
+	is_triggered_only = yes
+
+	option = {
+		name = EXCELLENT
+		event_target:event_target_zro_dominate_leader = {
+			set_owner = root
+			set_cooldown = 0
+			hidden_effect = {
+				remove_trait = leader_trait_zro_dominate_negative_admiral
+				remove_trait = leader_trait_zro_dominate_negative_general
+				remove_trait = leader_trait_zro_dominate_negative_governor
+				remove_trait = leader_trait_zro_dominate_negative_scientist
+			}
+			add_trait = leader_trait_zro_dominate_positive
+		}
+		event_target:event_target_zro_dominate_country = {
+			add_opinion_modifier = {
+				who = root
+				modifier = opinion_zro_dominate
+			}
+			country_event = {
+				id = event_zro_dominate.3101
+			}
+		}
+	}
+}
+
+country_event = {
+	id = event_zro_dominate.3011
+	title = event_zro_dominate.3001.name
+	desc = event_zro_dominate.3011.desc
+
+	picture = GFX_evt_atmospheric_flight
+	show_sound = event_psionic
+	is_triggered_only = yes
+
+	option = {
+		name = UNFORTUNATE
+		event_target:event_target_zro_dominate_leader = {
+			set_owner = root
+			set_cooldown = 0
+			hidden_effect = {
+				remove_trait = leader_trait_zro_dominate_negative_admiral
+				remove_trait = leader_trait_zro_dominate_negative_general
+				remove_trait = leader_trait_zro_dominate_negative_governor
+				remove_trait = leader_trait_zro_dominate_negative_scientist
+			}
+			add_trait = leader_trait_zro_dominate_positive
+		}
+
+		event_target:event_target_zro_dominate_country = {
+			add_opinion_modifier = {
+				who = root
+				modifier = opinion_zro_dominate
+			}
+			country_event = {
+				id = event_zro_dominate.3111
+			}
+		}
+	}
+}
+
+
+country_event = {
+	id = event_zro_dominate.3002
+	title = event_zro_dominate.3002.name
+	desc = event_zro_dominate.3002.desc
+
+	picture = GFX_evt_exploding_ship
+	show_sound = event_psionic
+	is_triggered_only = yes
+
+	option = {
+		name = UNFORTUNATE
+		event_target:event_target_zro_dominate_leader = {
+			kill_leader = { show_notification = yes }
+		}
+		event_target:event_target_zro_dominate_country = {
+			country_event = {
+				id = event_zro_dominate.3102
+			}
+		}
+	}
+}
+
+country_event = {
+	id = event_zro_dominate.3012
+	title = event_zro_dominate.3002.name
+	desc = event_zro_dominate.3012.desc
+
+	picture = GFX_evt_cover_blown
+	show_sound = event_psionic
+	is_triggered_only = yes
+
+	option = {
+		name = TERRIBLE
+		event_target:event_target_zro_dominate_leader = {
+			kill_leader = { show_notification = yes }
+		}
+		
+		event_target:event_target_zro_dominate_country = {
+			add_opinion_modifier = {
+				who = root
+				modifier = opinion_zro_dominate
+			}
+			country_event = {
+				id = event_zro_dominate.3112
+			}
+		}
+	}
+}
+
+# Victim warning: Succeeded quietly
+country_event = {
+	id = event_zro_dominate.3101
+	title = event_zro_dominate.3101.name
+	desc = event_zro_dominate.3101.desc
+
+	picture = GFX_evt_atmospheric_flight
+	show_sound = event_psionic
+	is_triggered_only = yes
+
+	option = {
+		name = UNACCEPTABLE
+	}
+}
+
+# Victim warning: Succeeded loudly
+country_event = {
+	id = event_zro_dominate.3111
+	title = event_zro_dominate.3101.name
+	desc = event_zro_dominate.3111.desc
+
+	picture = GFX_evt_atmospheric_flight
+	show_sound = event_psionic
+	is_triggered_only = yes
+
+	option = {
+		name = UNACCEPTABLE
+	}
+}
+
+
+# Victim warning: Failed quietly
+country_event = {
+	id = event_zro_dominate.3102
+	title = event_zro_dominate.3102.name
+	desc = event_zro_dominate.3102.desc
+
+	picture = GFX_evt_exploding_ship
+	show_sound = event_psionic
+	is_triggered_only = yes
+
+	option = {
+		name = UNACCEPTABLE
+	}
+}
+
+# Victim warning: Failed and found out!
+country_event = {
+	id = event_zro_dominate.3112
+	title = event_zro_dominate.3102.name
+	desc = event_zro_dominate.3112.desc
+
+	picture = GFX_evt_cover_blown
+	show_sound = event_psionic
+	is_triggered_only = yes
+
+	option = {
+		name = UNACCEPTABLE
+	}
+}

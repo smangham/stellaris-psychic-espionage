@@ -1,0 +1,211 @@
+namespace = event_zro_storm
+############################
+# ZRO: PORTAL
+############################
+# this = operation; from = target (country)
+@ConstantZroStormDays = 360
+@ConstantZroStormRandom = 360
+
+# Install operatives
+espionage_operation_event = {
+	id = event_zro_storm.1000
+	title = event_zro_storm.1000.name
+	espionage_operation = yes
+	desc = {
+		text = event_zro_storm.1000.desc
+	}
+	picture = GFX_evt_spy_network
+	show_sound = event_psionic
+	is_triggered_only = yes
+
+	immediate = { }
+
+	option = {
+		name = EXCELLENT
+	}
+}
+
+# Prepare endpoint
+espionage_operation_event = {
+	id = event_zro_storm.1001
+	title = event_zro_storm.1001.name
+	espionage_operation = yes
+	desc = {
+		text = event_zro_storm.1001.desc
+	}
+	picture = GFX_evt_shroudwalker_enclave
+	show_sound = event_psionic
+	is_triggered_only = yes
+
+	immediate = { }
+
+	option = {
+		name = LAUNCH_OPERATION
+
+		hidden_effect = {
+			owner = {
+				country_event = { 
+					id = event_zro_storm.2000
+					days = 3 
+				}
+			}
+		}
+	}
+}
+
+# Create storm
+country_event = {
+	id = event_zro_storm.2000
+	title = event_zro_storm.2000.name
+	desc = event_zro_storm.2000.desc
+
+	picture = GFX_evt_vortex
+	show_sound = evn_ove_shroud_tunnel
+	is_triggered_only = yes
+
+	option = {
+		name = EXCELLENT
+		custom_tooltip = event_zro_storm_2000_tooltip
+		hidden_effect = {
+			from.target = {
+				save_event_target_as = event_target_storm_starbase
+				star = {
+					create_ambient_object = {
+						type = psi_storm_1
+						location = this
+					}
+					last_created_ambient_object = {
+						set_ambient_object_flag = ambient_flag_zro_storm
+						set_location = {
+							target = prev
+							distance = 0
+							angle = random
+						}
+					}
+				}
+				solar_system = {
+					set_star_flag = star_flag_zro_storm
+					add_modifier = {
+						modifier = modifier_zro_storm 
+				   }
+					
+					every_neighbor_system = {
+						set_star_flag = star_flag_zro_storm
+						add_modifier = {
+							modifier = modifier_zro_storm 
+						}
+
+						star = {
+							create_ambient_object = {
+								type = psi_storm_1
+								location = this
+							}
+							last_created_ambient_object = {
+								set_ambient_object_flag = ambient_flag_zro_storm
+								set_location = {
+									target = prev
+									distance = 0
+									angle = random
+								}
+							}
+						}
+					}
+				}
+			}
+			country_event = {
+				id = event_zro_storm.2001
+				days = @ConstantZroStormDays
+				random = @ConstantZroStormRandom
+			}
+			from.target.owner = {
+				country_event = {
+					id = event_zro_storm.2010
+				}
+			}
+			
+		}
+		
+		from.spynetwork = {
+			add_spy_network_level_on_success_effect = { VALUE = -20 }
+		}
+		destroy_espionage_operation = from
+	}
+}
+
+# Create storm: Warning to victim
+country_event = {
+	id = event_zro_storm.2010
+	title = event_zro_storm.2010.name
+	desc = event_zro_storm.2010.desc
+
+	picture = GFX_evt_vortex
+	show_sound = evn_ove_shroud_tunnel
+	is_triggered_only = yes
+
+	option = {
+		name = UNACCEPTABLE
+	}
+}
+
+
+# Destroy storm
+country_event = {
+	id = event_zro_storm.2001
+	title = event_zro_storm.2001.name
+	desc = event_zro_storm.2001.desc
+
+	picture = GFX_evt_vortex
+	show_sound = evn_ove_shroud_tunnel
+	is_triggered_only = yes
+
+	option = {
+		name = ACKNOWLEDGED
+		custom_tooltip = event_zro_storm_2001_tooltip
+		remove_country_flag = country_flag_zro_portal
+
+		from.target = {
+			solar_system = {
+				remove_star_flag = star_flag_zro_storm
+				remove_modifier = modifier_zro_storm
+				random_system_ambient_object = {
+					limit = {
+						has_ambient_object_flag = ambient_flag_zro_storm
+					}
+					destroy_ambient_object = this
+				}
+
+				every_neighbor_system = {
+					remove_modifier = modifier_zro_storm
+					random_system_ambient_object = {
+						limit = {
+							has_ambient_object_flag = ambient_flag_zro_storm
+						}
+						destroy_ambient_object = this
+					}
+				}
+			}
+			hidden_effect = {
+				owner = {
+					country_event = {
+						id = event_zro_storm.2011
+					}
+				}
+			}
+		}
+	}
+}
+
+# Destroy storm: Notify victim
+country_event = {
+	id = event_zro_storm.2011
+	title = event_zro_storm.2011.name
+	desc = event_zro_storm.2011.desc
+
+	picture = GFX_evt_vortex
+	show_sound = evn_ove_shroud_tunnel
+	is_triggered_only = yes
+
+	option = {
+		name = FINALLY
+	}
+}
